@@ -83,19 +83,19 @@ public class LogIO {
         	th[i].start();
         }
         
-        progDiag=new ProcessProgressDialog();
+        progDiag = new ProcessProgressDialog();
         progDiag.progressBar.setStringPainted(true);
         progDiag.setLocationRelativeTo(null);
         progDiag.progressBar.setMaximum(count);
         final int progDiagCount=count;
-        Thread t=new Thread() {
+        Thread t = new Thread() {
         	public void run() {
         		while (true) {
-	        		int totalC=0;
-	            	boolean temp=true;
+	        		int totalC = 0;
+	            	boolean temp = true;
 	            	for (int i=0;i<threadCount;i++) {
-	            		totalC+=th[i].count;
-	            		temp&=th[i].flag;
+	            		totalC += th[i].count;
+	            		temp &= th[i].flag;
 	            	}
 	            	progDiag.lblText.setText("("+new DecimalFormat("0.00").format((totalC*100)/(double)progDiagCount)+"%)");
 	            	progDiag.progressBar.setValue(totalC);
