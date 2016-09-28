@@ -3,6 +3,9 @@ package RTMonitor;
 import java.io.*;
 import java.text.*;
 import java.util.*;
+
+import javax.swing.JOptionPane;
+
 import java.sql.*;
 
 public class LogIO {
@@ -60,6 +63,7 @@ public class LogIO {
         line = in.readLine();
         StringTokenizer st = new StringTokenizer(line);
         if (st.countTokens() != LOG_FIELD_COUNT) {
+        	JOptionPane.showMessageDialog(null,"Incompatible log file format: " ); 
             System.out.println("Incompatible log file format: " + st.countTokens());
             System.exit(0);
         }
