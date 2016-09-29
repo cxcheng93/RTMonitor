@@ -43,13 +43,17 @@ public class VisualiseLog {
 	    //create table view of the page requesting information
 	    public void createTable() {
 	        JFrame.setDefaultLookAndFeelDecorated(true);
-	        JFrame frame = new JFrame("Page Requests Summary");
-	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        TableCreator newContentPane = new TableCreator(listOfPages, fromDate, toDate);
-	        newContentPane.setOpaque(true); 
-	        frame.setContentPane(newContentPane);
-	        frame.pack();
-	        frame.setVisible(true);      
+	        //JFrame frame = new JFrame("Page Requests Summary");
+	        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        //TableCreator newContentPane = new TableCreator(listOfPages, fromDate, toDate);
+	        //newContentPane.setOpaque(true); 
+	        //frame.setContentPane(newContentPane);
+	        //frame.pack();
+	        //frame.setVisible(true);
+	        FrameFilter f=new FrameFilter(listOfPages,fromDate,toDate);
+	        f.setLocationRelativeTo(null);
+	        f.setVisible(true);
+
 	    }   
 	  
 	    /** Retrieve page request information from the database*/

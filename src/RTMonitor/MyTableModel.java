@@ -10,7 +10,7 @@ public class MyTableModel extends AbstractTableModel {
                                     "Avg Responsiveness"};
     private Object [][] data;
     
-    public MyTableModel(ArrayList listOfPages) {
+    public MyTableModel (ArrayList listOfPages) {
         rowCount = listOfPages.size();
         data = new Object[rowCount][getColumnCount()];
         for (int i = 0; i < rowCount; i++) {
