@@ -16,6 +16,7 @@ import javax.swing.JComboBox;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -58,8 +59,17 @@ public class FrameFilter extends JFrame {
 		panel.setLayout(null);
 		
 		JButton btnNewButton = new JButton("Filter...");
-		btnNewButton.setBounds(575, 8, 89, 23);
+		btnNewButton.setBounds(465, 8, 89, 23);
 		panel.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Cancel");
+		btnNewButton_1.setBounds(575, 8, 89, 23);
+		panel.add(btnNewButton_1);
+		btnNewButton_1.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				System.exit(0);
+			}
+		});
 		
 		table = new JTable();
 		table.setModel(new MyTableModel(listOfPages));
