@@ -2,6 +2,8 @@ package RTMonitor;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -24,6 +26,7 @@ public class FilterDialog extends JDialog {
 
 	public FilterDialog() {
 		setBounds(100, 100, 450, 300);
+		setTitle("Filter Dialog");
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -111,6 +114,12 @@ public class FilterDialog extends JDialog {
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
+				cancelButton.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent ae){
+						FilterDialog fd = new FilterDialog();
+						fd.hide();
+					}
+				});
 			}
 		}
 		

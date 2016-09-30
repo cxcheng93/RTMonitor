@@ -14,6 +14,8 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.JComboBox;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -30,6 +32,9 @@ public class FrameFilter extends JFrame {
     private Date from, to;
 	private JPanel contentPane;
 	private JTable table;
+	
+	public FrameFilter(){}
+	
 
 	public FrameFilter (ArrayList listOfPages, Date fromDate, Date toDate) {
 		LOP=listOfPages; from=fromDate; to=toDate;
@@ -61,6 +66,12 @@ public class FrameFilter extends JFrame {
 		JButton btnNewButton = new JButton("Filter...");
 		btnNewButton.setBounds(465, 8, 89, 23);
 		panel.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent ae){
+				FilterDialog fd = new FilterDialog();
+				fd.setVisible(true);
+			}
+		});
 		
 		JButton btnNewButton_1 = new JButton("Cancel");
 		btnNewButton_1.setBounds(575, 8, 89, 23);
