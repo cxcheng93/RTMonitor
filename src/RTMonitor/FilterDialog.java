@@ -116,8 +116,7 @@ public class FilterDialog extends JDialog {
 				buttonPane.add(cancelButton);
 				cancelButton.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent ae){
-						FilterDialog fd = new FilterDialog();
-						fd.hide();
+						dispose();
 					}
 				});
 			}
