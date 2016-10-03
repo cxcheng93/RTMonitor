@@ -23,6 +23,7 @@ public class FilterDialog extends JDialog {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
+	public String symbolStrings;
 
 	public FilterDialog() {
 		setBounds(100, 100, 450, 300);
@@ -38,6 +39,15 @@ public class FilterDialog extends JDialog {
 		JComboBox AvgResponseTimeComboBox = new JComboBox();
 		JComboBox AvgResponsivenessComboBox = new JComboBox();
 		JComboBox StatusComboBox = new JComboBox();
+		
+		//combo box
+		String [] symbolStrings = {"<",">","<=",">=","=" };
+		for(int i=0;i<symbolStrings.length;i++){
+			NOofReqComboBox.addItem(symbolStrings[i]);
+			AvgResponseTimeComboBox.addItem(symbolStrings[i]);
+			AvgResponsivenessComboBox.addItem(symbolStrings[i]);
+		}
+				
 		
 		textField = new JTextField();
 		textField.setColumns(10);
