@@ -23,6 +23,9 @@ import org.hsqldb.Database;
 
 
 public class runMonitor {
+	
+	public static String filtStatement="";
+	
 	public static void main(String[] args) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -42,7 +45,7 @@ public class runMonitor {
 	    JButton button = new JButton("Select Server Access Log");
 	    button.addActionListener(new ActionListener() {
 	      public void actionPerformed(ActionEvent ae) {
-	        JFileChooser fileChooser = new JFileChooser("C:\\Users\\Xiang_Cheng\\Documents\\WEK130009\\sem6\\fyp1\\");
+	        JFileChooser fileChooser = new JFileChooser("C:\\Users\\Cheng\\Documents\\sem7\\FYP2\\");
 	        int returnValue = fileChooser.showOpenDialog(null);
 	        if (returnValue == JFileChooser.APPROVE_OPTION) {
 	        	frame.dispose();
@@ -63,7 +66,7 @@ public class runMonitor {
 		            long l3=System.currentTimeMillis();
 		            System.out.println("ZZZ2 : "+(l3-l2)/1000);
 		            VisualiseLog vl = new VisualiseLog();
-		            vl.retrievePageInfo();
+		            vl.retrievePageInfo(runMonitor.filtStatement);
 		            vl.createTable();
 	          }
 	          catch (IOException ioe){}          

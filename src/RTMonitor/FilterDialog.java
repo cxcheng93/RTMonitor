@@ -19,13 +19,19 @@ import javax.swing.JTextField;
 public class FilterDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField NoOfRequestTextField;
+	private JTextField AvgRespTimeTextField;
+	private JTextField AvgResponsivenessTextField;
+	private JTextField StatusTextField;
 	public String symbolStrings;
+	public String filtStatement="";
+	private JComboBox AvgResponseTimeComboBox;
+	private JComboBox NOofReqComboBox;
+	private JComboBox AvgResponsivenessComboBox;
+	private JComboBox StatusComboBox;
 
 	public FilterDialog() {
+		setModal(true);
 		setBounds(100, 100, 450, 300);
 		setTitle("Filter Dialog");
 		getContentPane().setLayout(new BorderLayout());
@@ -35,13 +41,13 @@ public class FilterDialog extends JDialog {
 		JLabel lblNewLabel_1 = new JLabel("Avg Response Time");
 		JLabel lblNewLabel_2 = new JLabel("Average Responsiveness");
 		JLabel lblNewLabel_3 = new JLabel("Status");
-		JComboBox NOofReqComboBox = new JComboBox();
-		JComboBox AvgResponseTimeComboBox = new JComboBox();
-		JComboBox AvgResponsivenessComboBox = new JComboBox();
-		JComboBox StatusComboBox = new JComboBox();
+		NOofReqComboBox = new JComboBox();
+		AvgResponseTimeComboBox = new JComboBox();
+		AvgResponsivenessComboBox = new JComboBox();
+		StatusComboBox = new JComboBox();
 		
 		//combo box
-		String [] symbolStrings = {"<",">","<=",">=","=" };
+		String [] symbolStrings = {"ALL","=","<",">","<=",">="};
 		for(int i=0;i<symbolStrings.length;i++){
 			NOofReqComboBox.addItem(symbolStrings[i]);
 			AvgResponseTimeComboBox.addItem(symbolStrings[i]);
@@ -49,17 +55,17 @@ public class FilterDialog extends JDialog {
 		}
 				
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		NoOfRequestTextField = new JTextField();
+		NoOfRequestTextField.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
+		AvgRespTimeTextField = new JTextField();
+		AvgRespTimeTextField.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
+		AvgResponsivenessTextField = new JTextField();
+		AvgResponsivenessTextField.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
+		StatusTextField = new JTextField();
+		StatusTextField.setColumns(10);
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
@@ -68,8 +74,8 @@ public class FilterDialog extends JDialog {
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblNewLabel_2, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(lblNewLabel_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-						.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_3, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE))
+						.addComponent(lblNewLabel_3, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+						.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(StatusComboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -78,11 +84,11 @@ public class FilterDialog extends JDialog {
 						.addComponent(NOofReqComboBox, 0, 50, Short.MAX_VALUE))
 					.addGap(18)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(127, Short.MAX_VALUE))
+						.addComponent(NoOfRequestTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(AvgRespTimeTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(AvgResponsivenessTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(StatusTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(127))
 		);
 		gl_contentPanel.setVerticalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
@@ -91,22 +97,22 @@ public class FilterDialog extends JDialog {
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(NOofReqComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(NoOfRequestTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(AvgResponseTimeComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_1)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(AvgRespTimeTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(AvgResponsivenessComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_2)
-						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(AvgResponsivenessTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(StatusComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_3)
-						.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(StatusTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(64, Short.MAX_VALUE))
 		);
 		contentPanel.setLayout(gl_contentPanel);
@@ -116,6 +122,24 @@ public class FilterDialog extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						filtStatement="";
+						if (!NOofReqComboBox.getSelectedItem().equals("ALL")) {
+							if (filtStatement.equals("")) filtStatement+=" WHERE "; else filtStatement+=" AND ";
+							filtStatement=filtStatement+" RESPONSESIZE"+NOofReqComboBox.getSelectedItem().toString()+NoOfRequestTextField.getText();
+						}
+						if (!AvgResponseTimeComboBox.getSelectedItem().equals("ALL")) {
+							if (filtStatement.equals("")) filtStatement+=" WHERE "; else filtStatement+=" AND ";
+							filtStatement=filtStatement+" RESPONSETIME"+AvgResponseTimeComboBox.getSelectedItem().toString()+AvgRespTimeTextField.getText();
+						}
+						if (!AvgResponsivenessComboBox.getSelectedItem().equals("ALL")) {
+							if (filtStatement.equals("")) filtStatement+=" WHERE "; else filtStatement+=" AND ";
+							filtStatement=filtStatement+" RESPONSIVENESS"+AvgResponsivenessComboBox.getSelectedItem().toString()+AvgResponsivenessTextField.getText();
+						}
+						dispose();
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);

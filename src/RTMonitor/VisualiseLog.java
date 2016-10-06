@@ -57,7 +57,7 @@ public class VisualiseLog {
 	    }   
 	  
 	    /** Retrieve page request information from the database*/
-	    public void retrievePageInfo() {
+	    public void retrievePageInfo(String filtStatement) {
 	      	Connection dbconn;
 	      	Statement stmt;
 	        ResultSet result;
@@ -75,7 +75,8 @@ public class VisualiseLog {
 	        try {
 	            dbconn = DriverManager.getConnection("jdbc:hsqldb:mem:aname", "sa", "");
 	            stmt = dbconn.createStatement();
-	            sql = "SELECT * from tblRequestInfo ORDER BY responseTime ASC";
+	            sql = "SELECT * from tblRequestInfo "+filtStatement+" ORDER BY responseTime ASC";
+	            System.out.println(sql);
 	            result = stmt.executeQuery(sql);
 	            
 	            while (result.next()) {

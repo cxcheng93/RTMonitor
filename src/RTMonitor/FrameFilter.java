@@ -70,6 +70,13 @@ public class FrameFilter extends JFrame {
 			public void actionPerformed(ActionEvent ae){
 				FilterDialog fd = new FilterDialog();
 				fd.setVisible(true);
+				//if (!fd.filtStatement.equals("")) {
+					runMonitor.filtStatement=fd.filtStatement;
+					dispose();
+		            VisualiseLog vl = new VisualiseLog();
+		            vl.retrievePageInfo(runMonitor.filtStatement);
+		            vl.createTable();
+				//}
 			}
 		});
 		
@@ -109,4 +116,5 @@ public class FrameFilter extends JFrame {
 		scrollPane.setViewportView(table);
 		contentPane.setLayout(gl_contentPane);
 	}
+	
 }
