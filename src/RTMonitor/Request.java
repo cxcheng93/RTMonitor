@@ -15,6 +15,7 @@ public class Request {
     private boolean firstEmbeddedObject = true; //is there any embedded object found earlier
     private int responseTime;
     private int responsiveness;
+    private int status;
     
     /** Creates a new instance of request */
     public Request() {
@@ -71,6 +72,10 @@ public class Request {
     public void setResponsiveness(int rv) {
         responsiveness = rv;
     }
+    
+    public void setStatusCode(int st){
+    	status = st;
+    }
 
     public String getRemoteHost() {
         return remoteHost;
@@ -126,6 +131,10 @@ public class Request {
     
     public int getResponsiveness() {
         return responsiveness;
+    }
+    
+    public int getStatuscode(){
+    	return status;
     }
        
     //(first embedded object request time - page request time) 

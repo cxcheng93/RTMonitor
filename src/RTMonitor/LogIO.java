@@ -154,15 +154,16 @@ public class LogIO {
 					"RESPONSETIME BIGINT,"+
 					"RESPONSIVENESS BIGINT,"+
 					"NOOFOBJECTS BIGINT,"+
-					"RESPONSESIZE BIGINT);";
+					"RESPONSESIZE BIGINT,"+
+					"STATUS BIGINT);";
             
             stmt.executeUpdate(sql);
             
             Iterator iter = result.iterator();
             Request req = new Request();
             while (iter.hasNext()) {
-                PreparedStatement ps=dbconn.prepareStatement("INSERT INTO tblRequestInfo (page, client, reqDate, responseTime, responsiveness, noOfObjects, RESPONSESIZE) "
-                						+ "VALUES (?,?,?,?,?,?,?)");
+                PreparedStatement ps=dbconn.prepareStatement("INSERT INTO tblRequestInfo (page, client, reqDate, responseTime, responsiveness, noOfObjects, RESPONSESIZE, STATUS) "
+                						+ "VALUES (?,?,?,?,?,?,?,?)");
                 req = (Request)iter.next();
                 if (req.getNumberOfObjects() > 0) {
 //                    if(req.getRemoteHost().isEmpty()){
@@ -175,6 +176,7 @@ public class LogIO {
                 	ps.setInt(5,req.getResponsiveness());
                 	ps.setInt(6,req.getNumberOfObjects());
                 	ps.setLong(7,req.getResponseSize());
+                	ps.setInt(8,req.getStatuscode());
                 	ps.execute();
                 }
             }

@@ -18,7 +18,9 @@ public class Page {
     private int maxNoOfObjects;    
     private double medianResponseSize;
     private long minResponseSize;    
-    private long maxResponseSize;        
+    private long maxResponseSize;
+    private int status;
+    private Date requestingDateAndTime;
     
     /** Creates a new instance of Page */
     public Page() {
@@ -47,6 +49,11 @@ public class Page {
         
     public ArrayList getClients() {
         return listOfClients;
+    }
+    
+    public int getStatusCode(){
+    	if (listOfClients.size()==0) return 0;
+    	return ((Client)listOfClients.get(0)).getStatusCode();
     }
 
     public double getAverageResponseTime() {
@@ -94,6 +101,11 @@ public class Page {
 
     public long getMaxResponseSize() {
         return maxResponseSize;
+    }
+    
+    public Date getRequestingDateAndTime() {
+    	if (listOfClients.size()==0) return new java.sql.Date(0);
+    	return ((Client)listOfClients.get(0)).getTimeStamp();
     }
 
     public void setName(String n) {
@@ -155,15 +167,15 @@ public class Page {
         listOfClients.add(c);
     }    
     
-    public void setValues(String p, String c, Date ts, int rt, int rv, int noo, long rs) {
+    public void setValues(String p, String c, Date ts, int rt, int rv, int noo, long rs, int st) {
         name = p;
-        Client cl = new Client(c, ts, rt, rv, noo, rs);
+        Client cl = new Client(c, ts, rt, rv, noo, rs, st);
         addClient(cl);
         requestCount++;
     }
   
-    public void addClient(String c, Date ts, int rt, int rv, int noo, long rs) {
-        Client cl = new Client(c, ts, rt, rv, noo, rs);
+    public void addClient(String c, Date ts, int rt, int rv, int noo, long rs, int st) {
+        Client cl = new Client(c, ts, rt, rv, noo, rs, st);
         addClient(cl);
         requestCount++;
     }

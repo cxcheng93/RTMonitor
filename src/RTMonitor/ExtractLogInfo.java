@@ -115,6 +115,7 @@ public class ExtractLogInfo {
             aRequest.setRequestedPage(s[0]);
             aRequest.setRequestingDateAndTime(dateAndTime);
             aRequest.setResponseSize(bytes);
+            aRequest.setStatusCode(status);
             listOfRequests.add(aRequest);
         }
         //Assign the non-page request to the last matching host/user if possible

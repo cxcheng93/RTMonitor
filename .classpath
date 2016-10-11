@@ -28,5 +28,6 @@
 	<classpathentry kind="lib" path="C:/Users/Cheng/workspace/RTMonitor/lib/servlet.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Cheng/workspace/RTMonitor/lib/sqltool.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Cheng/workspace/RTMonitor/lib/swtgraphics2d.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Cheng/workspace/RTMonitor/lib/swingx-all-1.6.4.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

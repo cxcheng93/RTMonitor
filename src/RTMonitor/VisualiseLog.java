@@ -86,14 +86,15 @@ public class VisualiseLog {
 	                    pg.setValues(result.getString("page"), result.getString("client"), 
 	                       result.getTimestamp("reqDate"), result.getInt("responseTime"),
 	                       result.getInt("responsiveness"), result.getInt("noOfObjects"),
-	                       result.getLong("responseSize"));
+	                       result.getLong("responseSize"),result.getInt("STATUS"));
 	                    listOfPages.add(pg);
 	                }
 	                else {
 	                    pg = (Page) listOfPages.get(index);
 	                    pg.addClient(result.getString("client"), result.getTimestamp("reqDate"), 
 	                       result.getInt("responseTime"), result.getInt("responsiveness"), 
-	                       result.getInt("noOfObjects"), result.getLong("responseSize"));
+	                       result.getInt("noOfObjects"), result.getLong("responseSize"),
+	                       result.getInt("STATUS"));
 	                    listOfPages.set(index, pg);
 	                }
 	            } 

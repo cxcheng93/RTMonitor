@@ -20,6 +20,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -33,10 +34,15 @@ public class FrameFilter extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	
-	public FrameFilter(){}
+	public FrameFilter(){
+		buildUI(null,null,null);
+	}
 	
 
-	public FrameFilter (ArrayList listOfPages, Date fromDate, Date toDate) {
+	public FrameFilter (ArrayList l, Date f, Date t) {
+		buildUI(l,f,t);
+	}
+	private void buildUI (final ArrayList listOfPages, Date fromDate, Date toDate) {
 		LOP=listOfPages; from=fromDate; to=toDate;
 		setTitle("Page Request Summary");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,7 +74,13 @@ public class FrameFilter extends JFrame {
 		panel.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ae){
-				FilterDialog fd = new FilterDialog();
+				ArrayList<Date> dateList=new ArrayList<>();
+				for (Object o : listOfPages) {
+					dateList.add(((Page)o).getRequestingDateAndTime());
+				}
+				Collections.sort(dateList);
+				
+				FilterDialog fd = new FilterDialog(dateList.get(0),dateList.get(dateList.size()-1));
 				fd.setVisible(true);
 				//if (!fd.filtStatement.equals("")) {
 					runMonitor.filtStatement=fd.filtStatement;
@@ -83,6 +95,22 @@ public class FrameFilter extends JFrame {
 		JButton btnNewButton_1 = new JButton("Cancel");
 		btnNewButton_1.setBounds(575, 8, 89, 23);
 		panel.add(btnNewButton_1);
+		
+		JButton StatusButton = new JButton("Page Not Found");
+		StatusButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				ArrayList<Page> filt=new ArrayList<>();
+				for (Object o : listOfPages) {
+					Page p=(Page) o;
+					System.out.println(p.getStatusCode());
+					if (p.getStatusCode()==404) filt.add(p);
+				}
+				StatusPage sp = new StatusPage(filt);
+				sp.setVisible(true);
+			}
+		});
+		StatusButton.setBounds(27, 8, 89, 23);
+		panel.add(StatusButton);
 		btnNewButton_1.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
 				System.exit(0);
@@ -96,6 +124,7 @@ public class FrameFilter extends JFrame {
 		table.getColumnModel().getColumn(2).setPreferredWidth(150);
 		table.getColumnModel().getColumn(3).setPreferredWidth(150);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setAutoCreateRowSorter(true);
         table.addMouseListener(new MouseAdapter () {
         	public void mouseClicked(MouseEvent e) {
         		if (e.getClickCount()>1) {
@@ -116,5 +145,4 @@ public class FrameFilter extends JFrame {
 		scrollPane.setViewportView(table);
 		contentPane.setLayout(gl_contentPane);
 	}
-	
 }

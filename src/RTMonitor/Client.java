@@ -10,6 +10,7 @@ public class Client {
     private int responsiveness;
     private int noOfObjects;
     private long responseSize;
+    private int status;
         
     /** Creates a new instance of Client */
     public Client() {
@@ -21,13 +22,14 @@ public class Client {
         responseSize = 0;
     }
     
-    public Client(String n, Date ts, int rt, int rv, int noo, long rs) {
+    public Client(String n, Date ts, int rt, int rv, int noo, long rs, int st) {
         name = n;
         timeStamp = ts;
         responseTime = rt;
         responsiveness = rv;
         noOfObjects = noo;
         responseSize = rs;
+        status = st;
     }
     
     public String getName() {
@@ -54,6 +56,10 @@ public class Client {
         return responseSize;
     }
 
+    public int getStatusCode() {
+        return status;
+    }
+    
     public void setName(String n) {
         name = n;
     }

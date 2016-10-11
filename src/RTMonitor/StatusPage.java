@@ -1,6 +1,9 @@
 package RTMonitor;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -11,71 +14,50 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import javax.swing.JTable;
 
-public class StatusPage {
+public class StatusPage extends JFrame {
+	private JTable table;
 
-	private JFrame frame;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					StatusPage window = new StatusPage();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public StatusPage() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public StatusPage(ArrayList listOfPages) {
+		setBounds(100, 100, 450, 300);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
-		JPanel panel = new JPanel();
-		
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.setHorizontalAlignment(SwingConstants.RIGHT);
-		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
+		cancelButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent ae){
+				dispose();
+			}
+		});
+
+		
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 434, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 321, Short.MAX_VALUE)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
+					.addGap(0))
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(359, Short.MAX_VALUE)
 					.addComponent(cancelButton)
-					.addGap(23))
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-						.addComponent(cancelButton))
-					.addGap(6))
+					.addComponent(cancelButton)
+					.addContainerGap())
 		);
-		panel.setLayout(null);
-		frame.getContentPane().setLayout(groupLayout);
+		
+		table = new JTable();
+		table.setModel(new StatusTableModel(listOfPages));
+        table.setAutoCreateRowSorter(true);
+		scrollPane.setViewportView(table);
+		getContentPane().setLayout(groupLayout);
 	}
 }
