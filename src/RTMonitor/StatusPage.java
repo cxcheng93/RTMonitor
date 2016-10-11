@@ -20,7 +20,8 @@ public class StatusPage extends JFrame {
 	private JTable table;
 
 	public StatusPage(ArrayList listOfPages) {
-		setBounds(100, 100, 450, 300);
+		setTitle("Page Not Found");
+		setBounds(100, 100, 700, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JScrollPane scrollPane = new JScrollPane();
