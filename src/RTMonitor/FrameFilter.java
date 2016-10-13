@@ -18,6 +18,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import javax.swing.JButton;
+import java.awt.Dimension;
+import javax.swing.JLabel;
 
 public class FrameFilter extends JFrame {
     /**
@@ -30,6 +32,8 @@ public class FrameFilter extends JFrame {
 	private JTable table;
 	
 	public FrameFilter(){
+		setSize(new Dimension(700, 400));
+		setMinimumSize(new Dimension(400, 200));
 		buildUI(null,null,null);
 	}
 	
@@ -48,51 +52,6 @@ public class FrameFilter extends JFrame {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
-		JPanel panel = new JPanel();
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
-				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
-		);
-		panel.setLayout(null);
-		
-		JButton btnNewButton = new JButton("Filter...");
-		btnNewButton.setBounds(465, 8, 89, 23);
-		panel.add(btnNewButton);
-		btnNewButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent ae){
-				ArrayList<Date> dateList=new ArrayList<>();
-				for (Object o : listOfPages) {
-					dateList.add(((Page)o).getRequestingDateAndTime());
-				}
-				Collections.sort(dateList);
-				
-				FilterDialog fd;
-				if (dateList.size()>0) fd=new FilterDialog(dateList.get(0),dateList.get(dateList.size()-1));
-				else fd=new FilterDialog(null,null);
-				fd.setVisible(true);
-				//if (!fd.filtStatement.equals("")) {
-					runMonitor.filtStatement=fd.filtStatement;
-					dispose();
-		            VisualiseLog vl = new VisualiseLog();
-		            vl.retrievePageInfo(runMonitor.filtStatement);
-		            vl.createTable();
-				//}
-			}
-		});
-		
-		JButton btnNewButton_1 = new JButton("Cancel");
-		btnNewButton_1.setBounds(575, 8, 89, 23);
-		panel.add(btnNewButton_1);
-		
 		JButton StatusButton = new JButton("Page Not Found");
 		StatusButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
@@ -105,13 +64,65 @@ public class FrameFilter extends JFrame {
 				sp.setVisible(true);
 			}
 		});
-		StatusButton.setBounds(27, 8, 89, 23);
-		panel.add(StatusButton);
+		
+		JButton btnNewButton = new JButton("Filter...");
+		btnNewButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent ae){
+				ArrayList<Date> dateList=new ArrayList<>();
+				for (Object o : listOfPages) {
+					dateList.add(((Page)o).getRequestingDateAndTime());
+				}
+				Collections.sort(dateList);
+				
+				FilterDialog fd;
+				if (dateList.size()>0) fd=new FilterDialog(dateList.get(0),dateList.get(dateList.size()-1));
+				else fd=new FilterDialog(null,null);
+				fd.setVisible(true);
+				if (fd.okButtonPressed) {
+				//if (!fd.filtStatement.equals("")) {
+					runMonitor.filtStatement=fd.filtStatement;
+					dispose();
+		            VisualiseLog vl = new VisualiseLog();
+		            vl.retrievePageInfo(runMonitor.filtStatement);
+		            vl.createTable();
+				//}
+				}
+			}
+		});
+		
+		JButton btnNewButton_1 = new JButton("Cancel");
 		btnNewButton_1.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
 				System.exit(0);
 			}
 		});
+		
+		JLabel lblTimeTaken = new JLabel("");
+		lblTimeTaken.setText("Time taken : "+runMonitor.timeTaken+"ms");
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(StatusButton, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblTimeTaken)
+					.addPreferredGap(ComponentPlacement.RELATED, 320, Short.MAX_VALUE)
+					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE))
+				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 674, Short.MAX_VALUE)
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnNewButton_1)
+						.addComponent(btnNewButton)
+						.addComponent(StatusButton)
+						.addComponent(lblTimeTaken)))
+		);
 		
 		table = new JTable();
 		table.setModel(new MyTableModel(listOfPages));
@@ -119,6 +130,7 @@ public class FrameFilter extends JFrame {
 		table.getColumnModel().getColumn(1).setPreferredWidth(150);
 		table.getColumnModel().getColumn(2).setPreferredWidth(150);
 		table.getColumnModel().getColumn(3).setPreferredWidth(150);
+		table.getColumnModel().getColumn(4).setPreferredWidth(150);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setAutoCreateRowSorter(true);
         table.addMouseListener(new MouseAdapter () {

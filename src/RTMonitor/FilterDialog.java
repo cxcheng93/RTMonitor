@@ -56,6 +56,7 @@ public class FilterDialog extends JDialog {
 	private JLabel lblEndDate;
 	private JLabel AvgRespTimeTextFieldInfo;
 	private JLabel AvgResponsivenessTextFieldInfo;
+	public boolean okButtonPressed=false;
 	
 	public FilterDialog(Date startDate, Date endDate) {
 		setModal(true);
@@ -85,6 +86,7 @@ public class FilterDialog extends JDialog {
 		AvgResponseTimeComboBox = new JComboBox<>();
 		AvgResponseTimeComboBox.setBounds(148, 104, 70, 20);
 		AvgResponsivenessComboBox = new JComboBox<>();
+		AvgResponsivenessComboBox.setBounds(148, 142, 72, 20);
 		//combo box
 		String [] symbolStrings = {"ALL","=","<",">","<=",">="};
 		for(int i=0;i<symbolStrings.length;i++){
@@ -240,6 +242,7 @@ public class FilterDialog extends JDialog {
 								 JOptionPane.showMessageDialog(null,"Invalid input", "Error",JOptionPane.ERROR_MESSAGE);
 							}
 						}
+						okButtonPressed=true;
 						dispose();
 					}
 				});

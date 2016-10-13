@@ -53,7 +53,7 @@ public class LogIO {
         BufferedReader in = new BufferedReader(new FileReader(logName));
         String line;
         
-        final int threadCount=Runtime.getRuntime().availableProcessors()*2;
+        final int threadCount=runMonitor.threadCount;
         ExtractLogInfo [] extractor = new ExtractLogInfo[threadCount];
         for (int i=0;i<extractor.length;i++) extractor[i]=new ExtractLogInfo();
         
@@ -119,7 +119,7 @@ public class LogIO {
         		temp&=th[i].flag;
         	}
         	if (temp) break;
-        	try { Thread.sleep(500); } catch (InterruptedException e) {}
+        	try { Thread.sleep(5); } catch (InterruptedException e) {}
         }
         
         result.clear();

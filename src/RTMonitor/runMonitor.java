@@ -1,17 +1,12 @@
 package RTMonitor;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JProgressBar;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -21,6 +16,8 @@ import javax.swing.border.Border;
 public class runMonitor {
 	
 	public static String filtStatement="";
+	public static int threadCount=0;
+    public static long timeTaken=0;
 	
 	public static void main(String[] args) {
 		try {
@@ -30,20 +27,14 @@ public class runMonitor {
 			e.printStackTrace();
 		}
 	
-	    JFrame.setDefaultLookAndFeelDecorated(true);
-	    JDialog.setDefaultLookAndFeelDecorated(true);
-	    final JFrame frame = new JFrame("Response Time Monitor");
-	    frame.getContentPane().setLayout(new FlowLayout());
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    frame.setMinimumSize(new Dimension(400,75));
-	    frame.setLocationRelativeTo(null);
-	
-	    JButton button = new JButton("Select Server Access Log");
-	    button.addActionListener(new ActionListener() {
+		final StartMenu frame=new StartMenu();
+		frame.setLocationRelativeTo(null);
+	    frame.btnImport.addActionListener(new ActionListener() {
 	      public void actionPerformed(ActionEvent ae) {
 	        JFileChooser fileChooser = new JFileChooser("C:\\Users\\Cheng\\Documents\\sem7\\FYP2\\");
 	        int returnValue = fileChooser.showOpenDialog(null);
 	        if (returnValue == JFileChooser.APPROVE_OPTION) {
+	        	runMonitor.threadCount=(Integer)frame.comboBox.getSelectedItem();
 	        	frame.dispose();
 	          File selectedFile = fileChooser.getSelectedFile();
 	          LogIO aLogIO = new LogIO();
@@ -57,10 +48,10 @@ public class runMonitor {
 		        	long l1=System.currentTimeMillis();
 		            aLogIO.parseLog(selectedFile.getPath());
 		            long l2=System.currentTimeMillis();
-		            System.out.println("ZZZ1 : "+(l2-l1)/1000);
+		            timeTaken=l2-l1;
 		            aLogIO.logToDB();
 		            long l3=System.currentTimeMillis();
-		            System.out.println("ZZZ2 : "+(l3-l2)/1000);
+		            timeTaken+=(l3-l2);
 		            VisualiseLog vl = new VisualiseLog();
 		            vl.retrievePageInfo(runMonitor.filtStatement);
 		            vl.createTable();
@@ -69,8 +60,6 @@ public class runMonitor {
 	        }
 	      }
 	    });
-	    frame.getContentPane().add(button);
-	    frame.pack();
 	    frame.setVisible(true);
 	  }
 	
