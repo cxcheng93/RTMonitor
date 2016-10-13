@@ -1,15 +1,11 @@
 package RTMonitor;
 
 import javax.swing.*;
-import java.awt.*;
 import java.sql.*;
-import java.text.*;
 import java.util.*;
-import java.io.*;
-import java.lang.*;
 
 public class VisualiseLog {
-	private ArrayList listOfPages = new ArrayList();
+	private ArrayList <Page>listOfPages = new ArrayList<>();
 	private java.util.Date fromDate;
 	private java.util.Date toDate;
 
@@ -17,7 +13,7 @@ public class VisualiseLog {
 	    }
 	     
 	    private int getPageIndex(String n) {
-	        Iterator it = listOfPages.iterator();
+	        Iterator<Page> it = listOfPages.iterator();
 	        int index = -1;
 	        while (it.hasNext()) {
 	            Page pg = (Page) it.next();

@@ -1,22 +1,23 @@
 package RTMonitor;
 
 import java.util.*;
-import java.text.*;
 import javax.swing.*;
 import javax.swing.table.*;
-import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 
 public class TableCreator extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 827387034942049873L;
 	private JTable table;  
-    private ArrayList LOP;
+    private ArrayList<Page> LOP;
     private Date from, to;
    
-    public TableCreator(ArrayList listOfPages, Date fromDate, Date toDate) {
+    public TableCreator(ArrayList<Page> listOfPages, Date fromDate, Date toDate) {
         super(new GridLayout(1,0));
         LOP = listOfPages;
         from = fromDate;
@@ -38,7 +39,7 @@ public class TableCreator extends JPanel{
         		if (e.getClickCount()>1) {
         			int row=table.convertRowIndexToModel(table.getSelectedRow());
                     if (table.getValueAt(row, 0) != null) {
-                        Iterator it = LOP.iterator();
+                        Iterator <Page> it = LOP.iterator();
                         while (it.hasNext()) {
                             Page pg = (Page) it.next();
                             if (pg.getName().equals(table.getValueAt(row, 0))) {

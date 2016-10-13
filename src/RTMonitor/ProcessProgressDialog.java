@@ -1,21 +1,17 @@
 package RTMonitor;
 
-import java.awt.EventQueue;
-
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.SwingConstants;
 import javax.swing.JProgressBar;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.Dialog.ModalityType;
-import java.awt.Color;
-import java.awt.SystemColor;
-import java.awt.Font;
 
 public class ProcessProgressDialog extends JDialog {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -444633001920892243L;
 	public JLabel lblText;
 	public JProgressBar progressBar;
 

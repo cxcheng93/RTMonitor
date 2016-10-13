@@ -5,9 +5,6 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.GridLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.lang.Integer;
 import java.util.Iterator;
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -15,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -28,9 +24,13 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
 
 public class ChartCreator extends ApplicationFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2865873149594075542L;
+
 	public ChartCreator(String title) {
         super(title);
     }
@@ -132,7 +132,7 @@ public class ChartCreator extends ApplicationFrame{
 
    //group response times into 4 categories, i.e. < 3; 3-8; 8-15; >15 
    public void countResponseTime(Page pg, int[] values) {
-        Iterator it = pg.getListOfClients();
+        Iterator <Client> it = pg.getListOfClients();
         while (it.hasNext()) {
             Client cl = (Client) it.next();
             if (cl.getResponseTime() < 3) {
@@ -152,7 +152,7 @@ public class ChartCreator extends ApplicationFrame{
     
    //group responsiveness into 4 categories, i.e. < 3; 3-8; 8-15; >15 
     public void countResponsiveness(Page pg, int[] values) {
-        Iterator it = pg.getListOfClients();
+        Iterator <Client> it = pg.getListOfClients();
         while (it.hasNext()) {
             Client cl = (Client) it.next();
             if (cl.getResponsiveness() < 3) {
@@ -177,11 +177,16 @@ public class ChartCreator extends ApplicationFrame{
         frame.setTitle("Detailed Report: " + pg.getName());
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
-        frame.show();
+        frame.setVisible(true);
     }
     
     class ReportFrame extends JFrame {
-        //set a frame as the container
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 2744253239710508014L;
+
+		//set a frame as the container
         public ReportFrame(Page pg, Date from, Date to) {
             final int FRAME_WIDTH = 650;
             final int FRAME_HEIGHT = 700;

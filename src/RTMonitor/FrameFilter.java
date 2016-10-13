@@ -1,8 +1,5 @@
 package RTMonitor;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -12,24 +9,22 @@ import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.JComboBox;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
-
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JLabel;
 import javax.swing.JButton;
 
 public class FrameFilter extends JFrame {
-    private ArrayList LOP;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4879896163099185856L;
+	private ArrayList <Page> LOP;
     private Date from, to;
 	private JPanel contentPane;
 	private JTable table;
@@ -39,10 +34,10 @@ public class FrameFilter extends JFrame {
 	}
 	
 
-	public FrameFilter (ArrayList l, Date f, Date t) {
+	public FrameFilter (ArrayList<Page> l, Date f, Date t) {
 		buildUI(l,f,t);
 	}
-	private void buildUI (final ArrayList listOfPages, Date fromDate, Date toDate) {
+	private void buildUI (final ArrayList <Page> listOfPages, Date fromDate, Date toDate) {
 		LOP=listOfPages; from=fromDate; to=toDate;
 		setTitle("Page Request Summary");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -80,7 +75,9 @@ public class FrameFilter extends JFrame {
 				}
 				Collections.sort(dateList);
 				
-				FilterDialog fd = new FilterDialog(dateList.get(0),dateList.get(dateList.size()-1));
+				FilterDialog fd;
+				if (dateList.size()>0) fd=new FilterDialog(dateList.get(0),dateList.get(dateList.size()-1));
+				else fd=new FilterDialog(null,null);
 				fd.setVisible(true);
 				//if (!fd.filtStatement.equals("")) {
 					runMonitor.filtStatement=fd.filtStatement;
@@ -102,7 +99,6 @@ public class FrameFilter extends JFrame {
 				ArrayList<Page> filt=new ArrayList<>();
 				for (Object o : listOfPages) {
 					Page p=(Page) o;
-					System.out.println(p.getStatusCode());
 					if (p.getStatusCode()==404) filt.add(p);
 				}
 				StatusPage sp = new StatusPage(filt);
@@ -130,7 +126,7 @@ public class FrameFilter extends JFrame {
         		if (e.getClickCount()>1) {
         			int row=table.convertRowIndexToModel(table.getSelectedRow());
                     if (table.getValueAt(row, 0) != null) {
-                        Iterator it = LOP.iterator();
+                        Iterator<Page> it = LOP.iterator();
                         while (it.hasNext()) {
                             Page pg = (Page) it.next();
                             if (pg.getName().equals(table.getValueAt(row, 0))) {

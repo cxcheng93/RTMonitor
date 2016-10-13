@@ -1,16 +1,19 @@
 package RTMonitor;
 
 import java.util.*;
-import java.text.*;
 import javax.swing.table.*;
 
 public class MyTableModel extends AbstractTableModel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2045091920055011194L;
 	private int rowCount;
     private String[] columnNames = {"Page", "No of Request", "Avg Response Time", 
                                     "Avg Responsiveness"};
     private Object [][] data;
     
-    public MyTableModel (ArrayList listOfPages) {
+    public MyTableModel (ArrayList <Page> listOfPages) {
         rowCount = listOfPages.size();
         data = new Object[rowCount][getColumnCount()];
         for (int i = 0; i < rowCount; i++) {
@@ -54,7 +57,8 @@ public class MyTableModel extends AbstractTableModel {
 	return this;
     }
     
-    public Class getColumnClass(int col) {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public Class getColumnClass(int col) {
 	return getValueAt(0,col).getClass();
     }
 

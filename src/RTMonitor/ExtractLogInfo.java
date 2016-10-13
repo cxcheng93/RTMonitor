@@ -1,15 +1,13 @@
 package RTMonitor;
 
-import java.io.*;
 import java.text.*;
 import java.util.*;	
-import java.lang.*;
+
 
 public class ExtractLogInfo {
 	//the max time interval to be considered a request session = 60s 
     public static final int SEQUENCE_RANGE = 60000; //in ms
-    private String lastHost = null;
-    public ArrayList listOfRequests = new ArrayList();
+    public ArrayList<Request> listOfRequests = new ArrayList<Request>();
     
     /** Creates a new instance of ExtractProxy */
     public ExtractLogInfo() {}
@@ -31,7 +29,7 @@ public class ExtractLogInfo {
     }
     
     //Extract the requested object's name from the given string
-    private String getObjectName(String s) {
+    /*private String getObjectName(String s) {
         StringTokenizer st;
         String t = "";
         //split the string based on '/'
@@ -41,7 +39,7 @@ public class ExtractLogInfo {
             t = st.nextToken();
         }
         return t;        
-    }
+    }*/
     
     //Determine if it is a request for a page or base object
     private boolean isAPage(String s) {
@@ -110,7 +108,6 @@ public class ExtractLogInfo {
         String[] s = requestedPage.split("\\?");
         //Record if a page or base object is requested
         if (isAPage(s[0])) {
-            lastHost = remoteHost;
             aRequest.setRemoteHost(remoteHost);
             aRequest.setRequestedPage(s[0]);
             aRequest.setRequestingDateAndTime(dateAndTime);
@@ -157,7 +154,7 @@ public class ExtractLogInfo {
         //Discard the request if no previous host/user matched
     }  
     
-    public Iterator getListOfRequests() {
+    public Iterator<Request> getListOfRequests() {
         return listOfRequests.iterator();
     }
 

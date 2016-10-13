@@ -6,7 +6,7 @@ import java.lang.Math;
 public class Page {
 	private String name;
     private int requestCount;
-    private ArrayList listOfClients;
+    private ArrayList <Client> listOfClients;
     private double averageResponseTime;
     private double medianResponseTime;
     private double responseTime_90; //90th percentile response time
@@ -19,14 +19,14 @@ public class Page {
     private double medianResponseSize;
     private long minResponseSize;    
     private long maxResponseSize;
-    private int status;
-    private Date requestingDateAndTime;
+    //private int status;
+    //private Date requestingDateAndTime;
     
     /** Creates a new instance of Page */
     public Page() {
         name = "";
         requestCount = 0;
-        listOfClients = new ArrayList();
+        listOfClients = new ArrayList<>();
     }
     
     public Page(Page pg) {
@@ -43,11 +43,11 @@ public class Page {
         return requestCount;
     }
      
-    public Iterator getListOfClients() {
+    public Iterator <Client> getListOfClients() {
         return listOfClients.iterator();
     }
         
-    public ArrayList getClients() {
+    public ArrayList <Client> getClients() {
         return listOfClients;
     }
     
@@ -227,7 +227,7 @@ public class Page {
        int i = 0, temp;
        double nin;
        Client cl;
-       Iterator it = listOfClients.iterator();
+       Iterator <Client> it = listOfClients.iterator();
        while (it.hasNext()) {
             cl = (Client)it.next();
             tempRT[i] = cl.getResponseTime();

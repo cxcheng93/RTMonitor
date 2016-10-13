@@ -10,15 +10,15 @@ import java.sql.*;
 
 public class LogIO {
 	private static final int LOG_FIELD_COUNT = 10;
-    private ArrayList listOfPages;
-    private ArrayList result=new ArrayList<>();
+    private ArrayList<Page> listOfPages;
+    private ArrayList<Request> result=new ArrayList<>();
     private ProcessProgressDialog progDiag;
     
     public LogIO() {
-        listOfPages = new ArrayList();
+        setListOfPages(new ArrayList<Page> ());
     }
     
-    private int getPageIndex(String n) {
+    /*private int getPageIndex(String n) {
         Iterator it = listOfPages.iterator();
         int index = -1;
         while (it.hasNext()) {
@@ -31,7 +31,7 @@ public class LogIO {
         }
         index = -1;
         return index;
-    }
+    }*/
     
     private static class ExtractorProcessThread extends Thread {
     	ExtractLogInfo ext;
@@ -57,7 +57,8 @@ public class LogIO {
         ExtractLogInfo [] extractor = new ExtractLogInfo[threadCount];
         for (int i=0;i<extractor.length;i++) extractor[i]=new ExtractLogInfo();
         
-        ArrayList<String> [] list=new ArrayList [threadCount];
+        @SuppressWarnings("unchecked")
+		ArrayList<String> [] list=new ArrayList [threadCount];
         for (int i=0;i<list.length;i++) list[i]=new ArrayList<String>();
         
         line = in.readLine();
@@ -126,6 +127,7 @@ public class LogIO {
         	result.addAll(extractor[i].listOfRequests);
         }
         
+        in.close();
         System.out.println();
         
     }
@@ -159,7 +161,7 @@ public class LogIO {
             
             stmt.executeUpdate(sql);
             
-            Iterator iter = result.iterator();
+            Iterator <Request> iter = result.iterator();
             Request req = new Request();
             while (iter.hasNext()) {
                 PreparedStatement ps=dbconn.prepareStatement("INSERT INTO tblRequestInfo (page, client, reqDate, responseTime, responsiveness, noOfObjects, RESPONSESIZE, STATUS) "
@@ -187,6 +189,14 @@ public class LogIO {
             sqle.printStackTrace();
         }          
     }
+
+	public ArrayList<Page> getListOfPages() {
+		return listOfPages;
+	}
+
+	public void setListOfPages(ArrayList<Page> listOfPages) {
+		this.listOfPages = listOfPages;
+	}
      
     /*
     public void logToDB() throws IOException{

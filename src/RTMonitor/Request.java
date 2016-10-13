@@ -1,12 +1,11 @@
 package RTMonitor;
 
 import java.util.*;
-import java.io.*;
 
 public class Request {
 	private String remoteHost; //requesting host (name or IP)
     private String requestedPage; //requested page
-    private ArrayList objects;  //embedded objects of the page
+    private ArrayList <Object> objects;  //embedded objects of the page
     private Date requestingDateAndTime; //requesting date and time for the page
     private long responseSize; //response size for the page in bytes
     private Date secondAccessTime; //date and time when the first embedded 
@@ -21,7 +20,7 @@ public class Request {
     public Request() {
         remoteHost = null;
         requestedPage = null;
-        objects = new ArrayList();
+        objects = new ArrayList<>();
         requestingDateAndTime = null;
         responseSize = 0;  
         secondAccessTime = null;
@@ -86,7 +85,7 @@ public class Request {
     }
 
     //return list of objects
-    public Iterator getObjects() {
+    public Iterator <Object> getObjects() {
         return objects.iterator();
     }
 
@@ -117,7 +116,7 @@ public class Request {
     
     public long getTotalSize() {
         long size = responseSize;
-        Iterator it = objects.iterator();
+        Iterator<Object> it = objects.iterator();
         while (it.hasNext()) {
             ReqObject temp = (ReqObject) it.next();
             size += temp.getSize();
@@ -139,7 +138,7 @@ public class Request {
        
     //(first embedded object request time - page request time) 
     public long getPerceivedResponsiveness() {
-        double time;
+        //double time;
         try {
             if (secondAccessTime != null) {
                 return Math.abs(secondAccessTime.getTime() 
@@ -155,7 +154,7 @@ public class Request {
 
     //(last embedded object request time - page request time) 
     public long getPerceivedResponseTime() {
-        double time;
+        //double time;
         try {
             if (lastAccessTime != null) {
                 return Math.abs(lastAccessTime.getTime() 

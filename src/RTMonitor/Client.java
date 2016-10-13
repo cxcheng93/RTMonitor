@@ -1,7 +1,6 @@
 package RTMonitor;
 
 import java.util.*;
-import java.io.*;
 
 public class Client {
 	private String name;
