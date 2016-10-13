@@ -20,6 +20,10 @@ import java.awt.event.ActionEvent;
 
 public class homePage extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1166795466421179500L;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JPasswordField passwordField;
@@ -81,7 +85,7 @@ public class homePage extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try{
 					String Username = textField.getText();
-					String Password = passwordField.getText();
+					String Password = new String(passwordField.getPassword());
 					if (Username.equals("admin") && Password.equals("123")) {
 						JOptionPane.showMessageDialog(null, "Login successful");
 						String [] args = new String[0];

@@ -102,7 +102,7 @@ public class LogIO {
 	            	progDiag.progressBar.setValue(totalC);
 	            	progDiag.progressBar.setString(totalC+"/"+progDiagCount);
 	            	if (temp) break;
-	            	try { Thread.sleep(200); } catch (InterruptedException e) {}
+	            	try { Thread.sleep(17); } catch (InterruptedException e) {}
         		}
         		progDiag.lblText.setText("Please wait");
             	try { Thread.sleep(1000); } catch (InterruptedException e) {}
