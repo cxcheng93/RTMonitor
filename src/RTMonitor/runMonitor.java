@@ -21,6 +21,7 @@ public class runMonitor {
 	
 	public static void main(String[] args) {
 		try {
+			System.out.println(Integer.MIN_VALUE);
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {

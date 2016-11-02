@@ -167,7 +167,7 @@ public class LogIO {
                 PreparedStatement ps=dbconn.prepareStatement("INSERT INTO tblRequestInfo (page, client, reqDate, responseTime, responsiveness, noOfObjects, RESPONSESIZE, STATUS) "
                 						+ "VALUES (?,?,?,?,?,?,?,?)");
                 req = (Request)iter.next();
-                if (req.getNumberOfObjects() > 0) {
+                //if (req.getNumberOfObjects() > 0) {
 //                    if(req.getRemoteHost().isEmpty()){
 //                    	req.getRemoteHost().equalsIgnoreCase("-");
 //                    }
@@ -180,7 +180,7 @@ public class LogIO {
                 	ps.setLong(7,req.getResponseSize());
                 	ps.setInt(8,req.getStatuscode());
                 	ps.execute();
-                }
+                //}
             }
             stmt.close();
 	    dbconn.close();
